@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
@@ -16,7 +17,7 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
-@EnableCaching
+//@EnableCaching
 public class RedisConfig extends CachingConfigurerSupport {
 
     @Bean
@@ -39,4 +40,13 @@ public class RedisConfig extends CachingConfigurerSupport {
         template.afterPropertiesSet();
         return template;
     }
+//    @Bean
+//    public JedisConnectionFactory redisConnectionFactory() { 
+//      JedisConnectionFactory factory = new JedisConnectionFactory(); 
+//      factory.setHostName(host); 
+//      factory.setPort(port); 
+//      factory.setPassword(password); 
+//      factory.setTimeout(timeout); //设置连接超时时间 
+//      return factory; 
+//    }
 }

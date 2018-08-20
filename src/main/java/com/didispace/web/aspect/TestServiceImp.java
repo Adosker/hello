@@ -2,7 +2,7 @@ package com.didispace.web.aspect;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 @Service
-public class TestServiceImp implements TestService {
+public class TestServiceImp implements ILogService {
 
 	@ServiceLog(operation = "新增用户信息测试操作。。。。。")
 	@Override

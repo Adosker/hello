@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class DemoSpringbootAopLogApplicationTests {
 
 	@Autowired
-	TestService testService;
+	ILogService logService;
 
 	@Test
 	public void contextLoads() {
@@ -22,10 +22,10 @@ public class DemoSpringbootAopLogApplicationTests {
 		params.put("key1", "v1");
 		params.put("key2", "v2");
 
-		testService.insert(params, "000");
-		testService.update("name", "id");
-		testService.delete("leftso");
-		testService.doError("leftso.com");
+		logService.insert(params, "111");
+		logService.update("king", "kang");
+		logService.delete("111");
+		logService.doError("111");
 	}
 
 }

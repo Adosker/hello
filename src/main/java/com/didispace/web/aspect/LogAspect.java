@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -62,7 +63,42 @@ public class LogAspect {
 		}
 
 	}
+	
+	@After("entryPoint()")
+	public void after(JoinPoint joinPoint) {
 
+		log.info("=====================开始执行后置通知==================");
+		try {
+			String targetName = joinPoint.getTarget().getClass().getName();
+			String methodName = joinPoint.getSignature().getName();
+			Object[] arguments = joinPoint.getArgs();
+			Class<?> targetClass = Class.forName(targetName);
+			Method[] methods = targetClass.getMethods();
+			String operation = "";
+			for (Method method : methods) {
+				if (method.getName().equals(methodName)) {
+					Class<?>[] clazzs = method.getParameterTypes();
+					if (clazzs.length == arguments.length) {
+						operation = method.getAnnotation(ServiceLog.class).operation();// 操作人
+						break;
+					}
+				}
+			}
+			StringBuilder paramsBuf = new StringBuilder();
+			for (Object arg : arguments) {
+				paramsBuf.append(arg);
+				paramsBuf.append("&");
+			}
+
+			// *========控制台输出=========*//
+			log.info("[X用户]执行了[" + operation + "],类:" + targetName + ",方法名：" + methodName + ",参数:"
+					+ paramsBuf.toString());
+			log.info("=====================执行后置通知结束==================");
+		} catch (Throwable e) {
+			log.info("around " + joinPoint + " with exception : " + e.getMessage());
+		}
+
+	}
 	/**
 	 * 环绕通知处理处理
 	 * 

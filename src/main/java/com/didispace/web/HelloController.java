@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.didispace.web.aspect.ServiceLog;
 import com.didispace.web.jdbc.mapper.UserMapper;
 import com.didispace.web.jdbc.po.User;
 import com.didispace.web.jdbc.service.UserService;
@@ -16,7 +17,7 @@ import com.didispace.web.jdbc.service.UserService;
 public class HelloController {
 	@Autowired
 	private UserService userService;
-	
+	@ServiceLog(operation = "启动类。。")
 	@RequestMapping("/hello")
 	public String index() {
 		long beginTime=System.currentTimeMillis();
